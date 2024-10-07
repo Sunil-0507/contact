@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /*background-color: #D4AF37; /* Ornamental gold background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .contact-form {
+            background-color: #D4AF37; /* Ornamental gold background */
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form h2 {
+            color:black;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form input[type="tel"],
+        .contact-form textarea {
+            width: 95%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: black; /* Black text fields */
+            color: white; /* White text */
+        }
+
+        .contact-form input[type="submit"] {
+            background-color: lightgreen; /* Light green submit button */
+            color: black;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contact-form input[type="submit"]:hover {
+            background-color: limegreen;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contact-form">
+        <h2>Contact Us</h2>
+        <form method="post" id="contactForm" onsubmit="return validateForm()" action="https://script.google.com/macros/s/AKfycbzhN3XguHk3_9Prm6TPMbX8K43uydtYzUnPiFWJBec9F8JEt_hsCSGMSTGul79GQWYlcA/exec" name="contact-form">
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <div id="nameError" class="error"></div>
+            
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+            <div id="emailError" class="error"></div>
+
+            <input type="tel" id="number" name="number" placeholder="Your Number" pattern="[0-9]{10}" required>
+            <div id="numberError" class="error"></div>
+
+            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+            <div id="messageError" class="error"></div>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <!-- <script src="Google Sheet.js"></script> -->
+    <script>
+        function validateForm() {
+            let isValid = true;
+
+            // Clear previous error messages
+            document.getElementById("nameError").textContent = "";
+            document.getElementById("emailError").textContent = "";
+            document.getElementById("numberError").textContent = "";
+            document.getElementById("messageError").textContent = "";
+
+            // Validate Name
+            const name = document.getElementById("name").value;
+            if (name.trim() === "") {
+                document.getElementById("nameError").textContent = "Name is required";
+                isValid = false;
+            }
+
+            // Validate Email
+            const email = document.getElementById("email").value;
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById("emailError").textContent = "Please enter a valid email address";
+                isValid = false;
+            }
+
+            // Validate Phone Number
+            const number = document.getElementById("number").value;
+            if (!/^\d{10}$/.test(number)) {
+                document.getElementById("numberError").textContent = "Please enter a valid 10-digit number";
+                isValid = false;
+            }
+
+            // Validate Message
+            const message = document.getElementById("message").value;
+            if (message.trim() === "") {
+                document.getElementById("messageError").textContent = "Message is required";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    </script>
+    <script src="script.js"></script>
+
+</body>
+</html>
